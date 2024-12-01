@@ -7,7 +7,7 @@ import logging
 # Enable detailed logging for debugging
 logging.basicConfig(level=logging.INFO)
 
-async def observe_temperature():
+async def observe_stream():
     """
     Observes the CoAP /stream resource and displays the received frames using OpenCV.
     """
@@ -15,7 +15,7 @@ async def observe_temperature():
     context = await Context.create_client_context()
 
     # Create a GET request with observe option
-    request = Message(code=GET, uri="coap://172.20.10.2/stream", observe=0)
+    request = Message(code=GET, uri="coap://192.168.0.165/stream", observe=0)
 
     try:
         print("Sending observe request to CoAP server...")
@@ -60,7 +60,7 @@ async def observe_with_retry():
     """
     while True:
         try:
-            await observe_temperature()
+            await observe_stream()
         except Exception as e:
             print(f"Observation error: {e}. Retrying in 2 seconds...")
             await asyncio.sleep(2)
